@@ -1,0 +1,12 @@
+// GET ALL TOURS
+// app.get('/api/v1/tours', getAllTours);
+// GET A SPECIFIC TOUR
+// app.get('/api/v1/tours/:id', getTour);
+// CREATE NEW TOUR
+// app.post('/api/v1/tours', createTour);
+// UPDATE TOUR
+// PUT EXPECTS ALL THE FIELDS OF THE OBJECT TO BE UPDATED ON THE REQUEST
+// PATCH EXPECTS ONLY THE FIELDS TO BE UPDATED
+// app.patch('/api/v1/tours/:id', updateTour);
+//  DELETE TOUR
+// app.delete('/api/v1/tours/:id', deleteTour);
