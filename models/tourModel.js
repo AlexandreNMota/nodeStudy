@@ -18,7 +18,7 @@ const tourSchema = new mongoose.Schema({
   ratingsQuantity: { type: Number, default: 0 },
   price: { type: Number, required: [true, 'A tour must have a price'] },
   priceDiscount: { type: Number },
-  summery: {
+  summary: {
     type: String,
     trim: true, // Removes whitespace from start and end of a string
     required: [true, 'A tour must have a summery'],
