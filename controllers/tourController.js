@@ -9,7 +9,7 @@ exports.aliasTopTours = (req, res, next) => {
   next();
 };
 // ********* GET ALL TOURS **********
-exports.getAllTours = catchAsync(async (req, res) => {
+exports.getAllTours = catchAsync(async (req, res, next) => {
   // EXECUTE THE QUERY
   const features = new APIFeatures(Tour.find(), req.query)
     .filter()
@@ -37,7 +37,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
   });
 });
 // ******** GET A TOUR **************
-exports.getTour = catchAsync(async (req, res) => {
+exports.getTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findById(req.params.id);
   res.status(200).json({
     status: 'success',
@@ -47,7 +47,7 @@ exports.getTour = catchAsync(async (req, res) => {
   });
 });
 // ************* UPDATE A TOUR ************
-exports.updateTour = catchAsync(async (req, res) => {
+exports.updateTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -60,14 +60,14 @@ exports.updateTour = catchAsync(async (req, res) => {
   });
 });
 // DELETE A TOUR ********************
-exports.deleteTour = catchAsync(async (req, res) => {
+exports.deleteTour = catchAsync(async (req, res, next) => {
   await Tour.findByIdAndDelete(req.params.id);
   res.status(204).json({
     status: 'success',
     data: null,
   });
 });
-exports.getTourStats = catchAsync(async (req, res) => {
+exports.getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
     { $match: { ratingsAverage: { $gte: 0 } } },
     {
@@ -95,7 +95,7 @@ exports.getTourStats = catchAsync(async (req, res) => {
   });
 });
 
-exports.getMonthlyPlan = catchAsync(async (req, res) => {
+exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
   const year = req.params.year * 1;
   const plan = await Tour.aggregate([
     { $unwind: '$startDates' },
