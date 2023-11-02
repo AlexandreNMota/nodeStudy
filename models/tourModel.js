@@ -6,6 +6,9 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A tour must have a name'],
       unique: true,
+      trim: true,
+      maxLength: [40, 'A tour name must have less or equal then 40 characters'],
+      minLength: [10, 'A tour name must have at least 10 characters'],
     },
     duration: { type: Number, required: [true, 'A tour must have a duration'] },
     maxGroupSize: {
@@ -15,11 +18,29 @@ const tourSchema = new mongoose.Schema(
     difficulty: {
       type: String,
       required: [true, 'A tour must have a difficulty'],
+      enum: {
+        values: ['easy', 'medium', 'difficult'],
+        message: 'Not a valid difficulty [easy, medium, difficult]',
+      },
     },
-    ratingsAverage: { type: Number, default: 4.5 },
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+      min: [1, 'Rating must bbe at leas 1'],
+      max: [5, 'Rating must be below 5.0'],
+    },
     ratingsQuantity: { type: Number, default: 0 },
     price: { type: Number, required: [true, 'A tour must have a price'] },
-    priceDiscount: { type: Number },
+    priceDiscount: {
+      type: Number,
+      validate: {
+        validator: function (val) {
+          // this only points to current doc on NEW document creation
+          return val < this.price;
+        },
+        message: 'Desconto (R${VALUE}) deve ser menor que o preço do objeto',
+      },
+    },
     summary: {
       type: String,
       trim: true, // Removes whitespace from start and end of a string
