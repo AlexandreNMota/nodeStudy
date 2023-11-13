@@ -20,6 +20,7 @@ app.use(express.json()); //MIDDLEWARE THAT PARSES JSON REQUESTS
 // MIDDLEWARE TO GET REQUEST TIME
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+  // console.log(req.headers);
   next();
 });
 
